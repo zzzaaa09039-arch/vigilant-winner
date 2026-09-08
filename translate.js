@@ -1,0 +1,2 @@
+import {client,send} from "./_openai.js"; export default async function(req,res){if(req.method!=="POST")return send(res,405,{error:"POST فقط"});try{const {text,targetLanguage}=req.body||{};if(!text)return send(res,400,{error:"أدخل النص"});const x=await client().responses.create({model:"gpt-5.6-luna",input:`ترجم بدقة إلى ${targetLanguage}. أعد الترجمة فقط:
+${text}`});return send(res,200,{translation:x.output_text})}catch(e){return send(res,500,{error:e.message})}}
